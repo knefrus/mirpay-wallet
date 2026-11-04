@@ -1,0 +1,96 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'me.thedise.mirpayinvoke'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "me.thedise.mirpayinvoke"
+        minSdk 26
+        targetSdk 34
+        versionCode 10
+        versionName "2.0"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    // Ключ подписи берётся из секретов GitHub (см. README).
+    // Без него сборка подписывается debug-ключом.
+    def keystoreFile = System.getenv("KEYSTORE_FILE")
+    signingConfigs {
+        release {
+            if (keystoreFile) {
+                storeFile file(keystoreFile)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias "mirpay"
+                keyPassword System.getenv("KEYSTORE_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig keystoreFile ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.14'
+    }
+    packaging {
+        resources {
+            it.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+}
+
+dependencies {
+    // Core
+    implementation libs.androidx.core.ktx
+    implementation libs.play.services.wearable
+    implementation libs.androidx.appcompat
+
+    // Compose
+    implementation platform(libs.androidx.compose.bom)
+    implementation libs.androidx.palette.ktx
+    implementation libs.androidx.ui
+    implementation libs.androidx.core.splashscreen
+    implementation libs.androidx.wear.tooling.preview
+    androidTestImplementation libs.androidx.ui.test.junit4
+
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling.preview)
+
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.compose.foundation
+    implementation libs.androidx.compose.material
+    implementation libs.androidx.compose.navigation
+
+    // Wear
+    implementation libs.androidx.watchface.complications.data.source.ktx
+    implementation libs.androidx.wear.input
+    debugImplementation libs.androidx.ui.test.manifest
+
+    // Horologist
+    implementation libs.horologist.compose.layout
+
+    // Icons
+    implementation libs.androidx.material.icons.extended
+}

@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">Mir Pay Кошелёк</string>
+
+    <string name="app_title_mir">Мир</string>
+    <string name="app_title_pay">Пей</string>
+
+    <string name="complication_provider_label">Быстрый запуск</string>
+
+    <!-- Settings -->
+    <string name="settings_card_title">Карта</string>
+    <string name="settings_choose_card">Выберите карту</string>
+    <string name="settings_enter_ms">Выберите время</string>
+    <string name="settings_enter_vibration_intensity">Выберите интенсивность вибрации (мс)</string>
+    <string name="settings_haptic_feedback">Вибрация</string>
+    <string name="settings_haptic_feedback_label">Отклик</string>
+    <string name="settings_haptic_feedback_secondary">Старт и конец</string>
+    <string name="settings_timer_title">Отсчёт времени</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_vibrate_every_second_label">Постоянно</string>
+    <string name="settings_vibrate_every_second_secondary">Ежесекундно</string>
+    <string name="settings_vibration_intensity_title">Интенсивность вибрации</string>
+    <string name="settings_about">О приложении</string>
+    <string name="settings_app_version">Версия</string>
+
+    <!-- Vibration intensities -->
+    <string name="settings_vibration_intensity_gentle">Нежная</string>
+    <string name="settings_vibration_intensity_mild">Мягкая</string>
+    <string name="settings_vibration_intensity_moderate">Умеренная</string>
+    <string name="settings_vibration_intensity_standard">По умолчанию</string>
+    <string name="settings_vibration_intensity_robust">Прочная</string>
+    <string name="settings_vibration_intensity_vigorous">Энергичная</string>
+    <string name="settings_vibration_intensity_powerful">Мощная</string>
+    <string name="settings_vibration_intensity_intense">Интенсивная</string>
+    <string name="settings_vibration_intensity_extreme">Экстремальная</string>
+
+    <!-- Default abstract cards -->
+    <string name="card_default_secret_garden">Лужайка</string>
+    <string name="card_default_swiss_plum">Слива</string>
+    <string name="card_default_light_coral">Коралл</string>
+    <string name="card_default_spiced_nectarine">Нектарин</string>
+    <string name="card_default_stargate_shimmer">Мерцание</string>
+    <string name="card_default_vega_violet">Фиалка</string>
+    <string name="card_default_wonder_lust">Вожделение</string>
+
+    <!-- Real bank cards -->
+    <string name="card_real_alpha_title">Альфа Банк</string>
+    <string name="card_real_rosbank_title">Росбанк</string>
+    <string name="card_real_rosbank_supreme_title">Росбанк Supreme</string>
+    <string name="card_real_sberbank_title">СберБанк</string>
+    <string name="card_real_sberbank_tyan_2_title">СберБанк Тян 2</string>
+    <string name="card_real_tinkoff_title">Тинькофф</string>
+    <string name="card_real_psb_title">ПСБ</string>
+    <string name="card_real_gazprombank_title">Газпромбанк</string>
+    <string name="card_real_rshb_title">Россельхозбанк</string>
+    <string name="card_real_raiffeisen_title">Райффайзен</string>
+    <string name="card_real_tinkoff_drive_title">Тинькофф Drive</string>
+    <string name="card_real_tinkoff_premium_title">Тинькофф Premium</string>
+    <string name="card_real_tinkoff_platinum_title">Тинькофф Платинум</string>
+    <string name="card_real_tinkoff_friends_title">Тинькофф Friends</string>
+    <string name="card_real_tinkoff_invest_bear_title">Тинькофф Invest Bear</string>
+    <string name="card_real_tinkoff_s7_airlines_title">Тинькофф S7 Airlines</string>
+    <string name="card_real_tinkoff_pomegranate_title">Тинькофф Гранатовый</string>
+    <string name="card_real_uralsib_title">Уралсиб</string>
+    <string name="card_real_vtb_title">ВТБ</string>
+    <string name="card_real_yandex_title">Яндекс</string>
+    <string name="card_real_yoomoney_black_title">ЮMoney Черная</string>
+    <string name="card_real_yoomoney_violet_title">ЮMoney Фиолетовая</string>
+    <string name="card_real_yoomoney_gaming_title">ЮMoney Игровая</string>
+    <string name="card_real_yoomoney_graffiti_title">ЮMoney Граффити</string>
+    <string name="card_real_yoomoney_minecraft_title">ЮMoney Minecraft</string>
+    <string name="card_real_yoomoney_kids_title">ЮMoney Детская</string>
+    <string name="card_real_yoomoney_kids_2_title">ЮMoney Детская 2</string>
+    <string name="card_real_primbank_title">Приморье</string>
+    <string name="card_real_ozon_title">Ozon Банк</string>
+    <string name="card_real_mts_title">МТС Банк</string>
+    <string name="accessibility_text">Открывать Mir Pay Кошелёк при запуске Google Pay</string>
+
+
+    <!-- v2 -->
+    <string name="card_tbank_mir_supreme_title">Т-Банк Мир Supreme</string>
+    <string name="payment_paid">Оплачено</string>
+    <string name="payment_hint">Поднесите к терминалу</string>
+    <string name="settings_demo_title">Тест анимации</string>
+    <string name="settings_demo_secondary">Показать оплату</string>
+    <string name="settings_diagnostics_title">Диагностика</string>
+    <string name="settings_diagnostics_secondary">Автоопределение оплаты</string>
+    <string name="diag_service_on">Служба включена ✓</string>
+    <string name="diag_service_off">Служба выключена — включите её через adb (см. инструкцию)</string>
+    <string name="diag_last_text">Последний текст Mir Pay:</string>
+    <string name="diag_empty">Пока ничего</string>
+    <string name="diag_hint">Сделайте оплату и откройте этот экран. Если галочка не появилась — пришлите этот текст разработчику.</string>
+</resources>
