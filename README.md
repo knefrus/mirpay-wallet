@@ -1,53 +1,92 @@
 # Mir Pay Wallet
 
-Экран оплаты Mir Pay для часов на Wear OS.
+Красивый экран оплаты Mir Pay для часов на Wear OS.
 
-Пока идёт оплата, экран не гаснет. От карты расходятся волны, по краю тает таймер.
-После успешной оплаты — галочка и возврат на циферблат.
+| Оплата | Успех | Настройки |
+| :---: | :---: | :---: |
+| <img src="images/pay.png" width="240"> | <img src="images/success.png" width="240"> | <img src="images/settings.png" width="170"> |
 
-## Возможности
+<sub>Превью нарисовано по коду приложения.</sub>
 
-- Дизайны карт российских банков, включая Т-Банк Мир Supreme
-- Автоопределение успешной оплаты по экрану и уведомлениям Mir Pay
-- Запуск с циферблата через усложнение
-- Таймер и вибрация настраиваются
+Платит сам Mir Pay. Это приложение просто:
+- показывает карту и не даёт экрану погаснуть, пока платишь
+- рисует волны от карты и таймер по краю
+- когда оплата прошла — галочка и обратно на циферблат
+
+## Что нового по сравнению с оригиналом
+
+- новая анимация оплаты и успеха
+- карта Т-Банк Мир Supreme (нарисована кодом, чёткая на любом экране)
+- само понимает, что оплата прошла (читает экран Mir Pay)
+- выбор карты с превью вместо списка названий
+- тест анимации и диагностика в настройках
+- поправлены баги: падение службы, настройки не сохранялись сразу
+
+## Что нужно
+
+- часы на Wear OS (проверял на Galaxy Watch)
+- ПК с [ADB](https://developer.android.com/tools/releases/platform-tools)
+- Mir Pay APK для телефона (1.65 норм работает, 1.21 вылетает)
+- [MirPayWallet.apk](../../releases/latest)
 
 ## Установка
 
-Нужны: часы на Wear OS, ПК с [ADB](https://developer.android.com/tools/releases/platform-tools) и установленный на часах Mir Pay с добавленной картой.
+Закинь оба APK в папку `platform-tools`, открой там терминал.
 
-1. Скачайте `MirPayWallet.apk` из [Releases](../../releases).
-2. На часах включите «Отладка ADB» и «Отладка по Wi-Fi».
-3. Выполните на ПК:
+На часах: Параметры разработчика → включи «Отладка ADB» и «Беспроводная отладка».
 
+**1. Подключиться**
+
+Беспроводная отладка → «Подключить новое устройство» → там порт и код:
 ```sh
-adb connect IP:PORT
-adb install MirPayWallet.apk
+.\adb pair IP:ПОРТ_СОПРЯЖЕНИЯ
+```
+Потом IP:порт с главного экрана беспроводной отладки:
+```sh
+.\adb connect IP:ПОРТ
+.\adb devices
 ```
 
-4. Включите службу, которая определяет оплату:
-
+**2. Поставить**
 ```sh
-adb shell settings put secure enabled_accessibility_services me.thedise.mirpayinvoke/me.thedise.mirpayinvoke.main.MainAccessibilityService
-adb shell settings put secure accessibility_enabled 1
+.\adb install mirpay.apk
+.\adb install MirPayWallet.apk
+.\adb shell settings put secure enabled_accessibility_services me.thedise.mirpayinvoke/me.thedise.mirpayinvoke.main.MainAccessibilityService
+.\adb shell settings put secure accessibility_enabled 1
 ```
 
-5. Добавьте усложнение «Mir Pay Wallet» на циферблат.
+**3. Добавить карту в Mir Pay**
+```sh
+.\adb shell wm density 140
+```
+На часах открой Mir Pay → добавь карту → выключи «оплата только в приложении».
+```sh
+.\adb shell wm density reset
+```
 
-Настройки открываются свайпом влево. Там же есть тест анимации и диагностика.
+**4. Настроить**
+- Настройки → NFC → Бесконтактные платежи → Mir Pay
+- Двойное нажатие верхней кнопки → Mir Pay Wallet (Доп. функции → Настроить кнопки)
+- Выключи отладку, а то батарея сядет
+
+## Если чо-то не так
+
+| Проблема | Что делать |
+| --- | --- |
+| `cannot connect` | выключи VPN на ПК, проверь что часы и ПК в одном Wi-Fi |
+| `more than one device` | добавляй `-s IP:ПОРТ` после `adb` |
+| `device offline` | часы уснули и сменили IP, глянь новый в отладке и `connect` заново |
+| галочка не появилась | тапни по карте, потом Настройки → Диагностика, скинь текст в issues |
 
 ## Сборка
 
 ```sh
 ./gradlew assembleRelease
 ```
+Или просто пушь в `main` — GitHub Actions соберёт APK сам.
 
-GitHub Actions собирает APK при каждом коммите в `main` и прикрепляет его к каждому релизу.
-
-## Благодарности
+## Спасибо
 
 Форк [the-dise/Mir-Pay-Wallet](https://github.com/the-dise/Mir-Pay-Wallet). Идея — Gorban и [MirPayTimer](https://github.com/s44khin/MirPayTimer).
 
-## Лицензия
-
-[GPL-3.0](LICENSE). Проект не связан с НСПК и банками. Названия и дизайны карт принадлежат их владельцам.
+[GPL-3.0](LICENSE). Не связано с НСПК и банками.
