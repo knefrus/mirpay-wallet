@@ -248,7 +248,7 @@ fun PaymentScreen(
                 if (burst > 0f) {
                     drawCircle(
                         color = SuccessGreen.copy(alpha = (1f - burst) * 0.8f),
-                        radius = r * (1f + burst * 1.3f), center = c,
+                        radius = r * (1f + burst * 0.45f), center = c,
                         style = Stroke(width = (6f * (1f - burst) + 1f).dp.toPx())
                     )
                 }
@@ -258,7 +258,7 @@ fun PaymentScreen(
                     val n = 16
                     for (i in 0 until n) {
                         val ang = (i * 2 * PI / n + (i % 2) * 0.12).toFloat()
-                        val dist = r * (1.05f + burst * (0.9f + (i % 3) * 0.25f))
+                        val dist = r * (1.05f + burst * (0.5f + (i % 3) * 0.15f))
                         val pc = when (i % 3) {
                             0 -> SuccessGreen
                             1 -> accent
@@ -372,7 +372,7 @@ fun PaymentScreen(
             color = Color.White,
             modifier = Modifier
                 .align(Alignment.Center)
-                .offset(y = circleR + side * 0.1f)
+                .offset(y = circleR + side * 0.13f)
                 .graphicsLayer {
                     alpha = textIn
                     translationY = (1f - textIn) * 8.dp.toPx()
