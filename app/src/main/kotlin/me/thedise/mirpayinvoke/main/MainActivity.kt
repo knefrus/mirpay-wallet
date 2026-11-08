@@ -38,10 +38,30 @@ class MainActivity : ComponentActivity() {
                 WearApp(
                     appStorage = appStorage,
                     forceSuccess = forceSuccess.value,
-                    onFinish = { finish() }
+                    onFinish = {
+                        // Сразу на циферблат, чтобы под Wallet не остался экран Mir Pay
+                        startActivity(
+                            Intent(Intent.ACTION_MAIN)
+                                .addCategory(Intent.CATEGORY_HOME)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                        finish()
+                    }
                 )
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        PaymentEvents.appResumed = true
+        // Вернулись после Mir Pay, а успех уже был — сразу галочка
+        if (PaymentEvents.successAt.value > PaymentEvents.sessionStartedAt) forceSuccess.value = true
+    }
+
+    override fun onPause() {
+        PaymentEvents.appResumed = false
+        super.onPause()
     }
 
     override fun onNewIntent(intent: Intent) {

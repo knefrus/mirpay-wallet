@@ -104,13 +104,19 @@ fun PaymentScreen(
     // Таймер
     LaunchedEffect(Unit) {
         if (haptic && !vibrateEverySecond) haptics.tick(vibrationMs)
-        repeat(maxTicks) {
+        while (ticksLeft > 0) {
             delay(1000)
             if (phase != Phase.Waiting) return@LaunchedEffect
+            // Пока сверху Mir Pay (идёт оплата) — таймер на паузе
+            if (!PaymentEvents.appResumed) continue
             ticksLeft--
             if (haptic && vibrateEverySecond) haptics.tick(vibrationMs)
         }
         if (phase == Phase.Waiting) {
+            if (PaymentEvents.successAt.value > startedAt) {
+                phase = Phase.Success
+                return@LaunchedEffect
+            }
             if (haptic && !vibrateEverySecond) haptics.tick(vibrationMs)
             phase = Phase.Timeout
         }
@@ -126,7 +132,8 @@ fun PaymentScreen(
 
     // Сигнал от службы (Mir Pay показал «оплачено»)
     LaunchedEffect(successAt, forceSuccess) {
-        if (phase == Phase.Waiting && (forceSuccess || successAt > startedAt)) phase = Phase.Success
+        // Успех важнее таймера: даже если время вышло, показываем галочку
+        if (phase != Phase.Success && (forceSuccess || successAt > startedAt)) phase = Phase.Success
     }
 
     // ---------- Анимации ----------
@@ -152,6 +159,7 @@ fun PaymentScreen(
     LaunchedEffect(phase) {
         when (phase) {
             Phase.Success -> {
+                exitAlpha.snapTo(1f)
                 haptics.success()
                 launch { success.animateTo(1f, tween(1100, easing = LinearEasing)) }
                 delay(2300)

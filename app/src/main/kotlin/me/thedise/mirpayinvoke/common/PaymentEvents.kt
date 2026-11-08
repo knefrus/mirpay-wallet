@@ -24,6 +24,10 @@ object PaymentEvents {
     @Volatile
     var sessionStartedAt: Long = 0L
 
+    /** true, пока экран Wallet на переднем плане (а не Mir Pay поверх) */
+    @Volatile
+    var appResumed: Boolean = false
+
     fun isSessionActive(): Boolean =
         sessionStartedAt != 0L && SystemClock.elapsedRealtime() - sessionStartedAt < SESSION_TIMEOUT_MS
 
